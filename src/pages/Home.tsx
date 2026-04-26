@@ -4,9 +4,9 @@
 
 import { useState, useEffect } from "react"
 import type { Todo } from "../types/Todo";
-import { getTodos, deleteTodo } from "../api/todosApi"
+import { getTodos, deleteTodo, addTodo } from "../api/todosApi"
 import TodoList from "../components/TodoList";
-// import TodoList from "../components/TodoList";
+import TodoForm from "../components/TodoForm";
 // import TodoItem from "../components/TodoItem";
 
 function Home() {
@@ -17,6 +17,24 @@ function Home() {
   // const [search, setSearch] = useState("");
   // const [filter, setFilter] = useState<"all" | "completed" | "active">("all");
   // const [editingTodo, setEditingTodo] = useState<Todo | null>(null);
+
+  async function handleAddTodo(text: string){
+    const newTodo = {
+      todo: text,
+      completed: false,
+      userId: 1
+    }
+    setLoading(true)
+    setError(null)
+    try {
+      const createdTodo = await addTodo(newTodo)
+      setTodos(prev => [...prev, createdTodo])
+    } catch (error) {
+      setError(error instanceof Error ? error.message : 'An error occurred')
+    } finally {
+      setLoading(false)
+    }
+  }
 
   async function handleDeleteTodo(id:number) {
     setLoading(true)
@@ -64,6 +82,9 @@ function Home() {
         todos={todos}
         onDelete = {handleDeleteTodo}
         />
+      <TodoForm
+        onAddTodo = {handleAddTodo}
+      />
     </>
   )
 }

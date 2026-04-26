@@ -1,13 +1,14 @@
 // API
 /*
 getTodos() ***
-createTodo(todo: string)
+createTodo(todo: string) ***
 updateTodo(id, data)
 deleteTodo(id)
 */
 
-import type { Todo } from "../types/Todo";
+import type { Todo, CreateTodo } from "../types/Todo";
 
+// get data function - GET
 export async function getTodos(): Promise<Todo[]> {
   const url = "https://dummyjson.com/todos";
   const response = await fetch(url);
@@ -17,6 +18,23 @@ export async function getTodos(): Promise<Todo[]> {
   const result = await response.json();
   console.log(result);
   return result.todos;
+}
+
+// add new data - POST
+export async function addTodo(newTodo: CreateTodo):Promise<Todo> {
+  const url = `https://dummyjson.com/todos/add`;
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify(newTodo)
+  });
+  if (!response.ok) {
+    throw new Error(`Error: ${response.status}`)
+  }
+  return response.json()
 }
 
 
