@@ -37,7 +37,24 @@ export async function addTodo(newTodo: CreateTodo):Promise<Todo> {
   return response.json()
 }
 
+// Update data - PUT
+export async function updateTodo(id: number, updatedField: CreateTodo):Promise<Todo> {
+  const url = `https://dummyjson.com/todos/${id}`;
+  const response = await fetch(url, {
+    method: "PUT",
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify(updatedField)
+  });
+  if (!response.ok) {
+    throw new Error(`Error: ${response.status}`)
+  }
+  return response.json()
+}
 
+// Delete data
 export async function deleteTodo(id: number) {
   const url = `https://dummyjson.com/todos/${id}`;
   const response = await fetch(url, {

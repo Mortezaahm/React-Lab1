@@ -6,9 +6,10 @@ import type { Todo } from "../types/Todo"
 type Props = {
      todos: Todo[]
      onDelete: (id: number) => void
+     onEdit: (todo: Todo) => void
 }
 
-function TodoList({todos, onDelete}: Props) {
+function TodoList({todos, onDelete, onEdit}: Props) {
 
   return (
     <>
@@ -20,6 +21,7 @@ function TodoList({todos, onDelete}: Props) {
                 key={todo.id}
                 todo={todo}
                 onDelete= {onDelete}
+                onEdit= {onEdit}
             />
             ))}
         </ul>
