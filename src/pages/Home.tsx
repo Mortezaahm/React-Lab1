@@ -106,7 +106,11 @@ function handleCancelEdit() {
 
   return (
     <>
-    {loading && <h4>Loading...</h4>}
+    {loading && (
+      <div className="loading-wrapper">
+        <div className="spinner" />
+      </div>
+    )}
     {error && <h4>{error}</h4>}
     <div className="app">
       <div className="card">
