@@ -7,10 +7,11 @@ import type { CreateTodo, Todo } from "../types/Todo"
 type Props = {
   onAddTodo: (text: string) => void
   onUpdateTodo: (id: number, todo: CreateTodo) => void
+  onCancelEdit: () => void
   editingTodo: Todo | null
 }
 
-function TodoForm( { onAddTodo, onUpdateTodo, editingTodo } : Props) {
+function TodoForm( { onAddTodo, onUpdateTodo, onCancelEdit ,editingTodo } : Props) {
   const [title, setTitle] = useState("")
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>){
@@ -40,6 +41,7 @@ function TodoForm( { onAddTodo, onUpdateTodo, editingTodo } : Props) {
 
   return (
     <>
+    <h3>{editingTodo ? "Edit Todo" : "Add Todo"}</h3>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -47,7 +49,14 @@ function TodoForm( { onAddTodo, onUpdateTodo, editingTodo } : Props) {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
-        <button type="submit">Submit</button>
+        <button className="submit-btn" type="submit">
+          {editingTodo ? "Update" : "Add"}
+        </button>
+        {editingTodo && (
+          <button type="button" className="cancel-btn" onClick={onCancelEdit}>
+            Cancel
+          </button>
+        )}
       </form>
     </>
   )

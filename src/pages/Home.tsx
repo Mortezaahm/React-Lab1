@@ -40,6 +40,10 @@ function Home() {
   setEditingTodo(todo)
 }
 
+function handleCancelEdit() {
+  setEditingTodo(null)
+}
+
   async function handleUpdateTodo(id:number, updatedData:CreateTodo) {
     try {
       const updatedTodo = await updateTodo(id, updatedData)
@@ -97,16 +101,21 @@ function Home() {
 
   return (
     <>
-      <TodoList
-        todos={todos}
-        onDelete = {handleDeleteTodo}
-        onEdit={handleStartEdit}
+    <div className="app">
+      <div className="card">
+        <TodoForm
+          onAddTodo = {handleAddTodo}
+          onUpdateTodo= {handleUpdateTodo}
+          onCancelEdit={handleCancelEdit}
+          editingTodo= {editingTodo}
         />
-      <TodoForm
-        onAddTodo = {handleAddTodo}
-        onUpdateTodo= {handleUpdateTodo}
-        editingTodo= {editingTodo}
-      />
+        <TodoList
+          todos={todos}
+          onDelete = {handleDeleteTodo}
+          onEdit={handleStartEdit}
+          />
+      </div>
+    </div>
     </>
   )
 }

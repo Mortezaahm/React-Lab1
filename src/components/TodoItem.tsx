@@ -12,9 +12,15 @@ function TodoItem({todo, onDelete, onEdit}: Props) {
   return (
     <>
         <li>
-            {todo.todo}
-            <button onClick={() => onEdit(todo)}> Edit </button>
-            <button onClick={() => onDelete(todo.id)}> Delete </button>
+          <span className="todo-text">{todo.todo}</span>
+
+          <button className="edit-btn" onClick={() => onEdit(todo)}>
+            Edit
+          </button>
+
+          <button className="delete-btn" onClick={() => onDelete(todo.id)}>
+            Delete
+          </button>
         </li>
     </>
   )
