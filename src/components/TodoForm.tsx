@@ -1,6 +1,3 @@
-// create + edit
-// controlled inputs
-
 import { useState, useEffect } from "react"
 import type { CreateTodo, Todo } from "../types/Todo"
 

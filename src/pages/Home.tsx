@@ -1,13 +1,8 @@
-// fetch data
-// main state
-// send props
-
 import { useState, useEffect } from "react"
 import type { CreateTodo, Todo } from "../types/Todo";
 import { getTodos, deleteTodo, addTodo, updateTodo } from "../api/todosApi"
 import TodoList from "../components/TodoList";
 import TodoForm from "../components/TodoForm";
-// import TodoItem from "../components/TodoItem";
 
 function Home() {
 
@@ -15,8 +10,8 @@ function Home() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [editingTodo, setEditingTodo] = useState<Todo | null>(null);
-  // const [search, setSearch] = useState("");
-  // const [filter, setFilter] = useState<"all" | "completed" | "active">("all");
+  const [search, setSearch] = useState("");
+  const [filter, setFilter] = useState<"all" | "completed" | "active">("all");
 
   async function handleAddTodo(text: string){
     const newTodo = {
@@ -45,13 +40,16 @@ function handleCancelEdit() {
 }
 
   async function handleUpdateTodo(id:number, updatedData:CreateTodo) {
-    try {
-      const updatedTodo = await updateTodo(id, updatedData)
+
       setTodos(prev =>
         prev.map(todo =>
-          todo.id === id ? updatedTodo : todo
+          todo.id === id
+           ? {...todo, ...updatedData}
+           : todo
         )
       )
+    try {
+      await updateTodo(id, updatedData)
     } catch (error) {
       setError(error instanceof Error ? error.message : 'An error occurred')
     } finally {
@@ -72,8 +70,7 @@ function handleCancelEdit() {
     }
   }
 
-  useEffect(() => {
-    async function fetchTodosHandler () {
+   async function fetchTodosHandler () {
     setLoading(true)
     setError(null)
     try {
@@ -86,34 +83,75 @@ function handleCancelEdit() {
     }
   }
 
-  fetchTodosHandler()
+  function handleToggle(todo: Todo) {
+    handleUpdateTodo(todo.id, {
+      ...todo,
+      completed: !todo.completed
+    })
+  }
 
+  useEffect(() => {
+    fetchTodosHandler()
   }, [])
 
-  if (loading) {
-    return <h1>Loading...</h1>
-  }
-
-  if (error) {
-    return <h2>{error}</h2>
-  }
-
+  const filteredTodos = todos
+    .filter((todo) => {
+      if (filter === "active") return !todo.completed
+      if (filter === "completed") return todo.completed
+      return true
+    })
+    .filter((todo) =>
+      todo.todo.toLowerCase().includes(search.toLowerCase())
+    )
 
   return (
     <>
+    {loading && <h4>Loading...</h4>}
+    {error && <h4>{error}</h4>}
     <div className="app">
       <div className="card">
-        <TodoForm
-          onAddTodo = {handleAddTodo}
-          onUpdateTodo= {handleUpdateTodo}
-          onCancelEdit={handleCancelEdit}
-          editingTodo= {editingTodo}
-        />
-        <TodoList
-          todos={todos}
-          onDelete = {handleDeleteTodo}
-          onEdit={handleStartEdit}
+        <div className="top-section">
+          <TodoForm
+            onAddTodo = {handleAddTodo}
+            onUpdateTodo= {handleUpdateTodo}
+            onCancelEdit={handleCancelEdit}
+            editingTodo= {editingTodo}
           />
+
+          <input
+            type="text"
+            placeholder="Search todos..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          {filteredTodos.length === 0 && <p>No todos found</p>}
+
+          <div className="filter">
+            <button
+              className={filter === "all" ? "active" : ""}
+              onClick={() => setFilter("all")}>
+                All
+            </button>
+            <button
+              className={filter === "active" ? "active" : ""}
+              onClick={() => setFilter("active")}>
+                Active
+            </button>
+            <button
+              className={filter === "completed" ? "active" : ""}
+              onClick={() => setFilter("completed")}>
+                Completed
+            </button>
+          </div>
+        </div>
+        <div className="list-section">
+          <TodoList
+            todos={filteredTodos}
+            onDelete = {handleDeleteTodo}
+            onEdit={handleStartEdit}
+            onToggle={handleToggle}
+            />
+        </div>
       </div>
     </div>
     </>

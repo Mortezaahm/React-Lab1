@@ -7,9 +7,10 @@ type Props = {
      todos: Todo[]
      onDelete: (id: number) => void
      onEdit: (todo: Todo) => void
+     onToggle:(todo:Todo) => void
 }
 
-function TodoList({todos, onDelete, onEdit}: Props) {
+function TodoList({todos, onDelete, onEdit, onToggle}: Props) {
 
   return (
     <>
@@ -22,6 +23,7 @@ function TodoList({todos, onDelete, onEdit}: Props) {
                 todo={todo}
                 onDelete= {onDelete}
                 onEdit= {onEdit}
+                onToggle={onToggle}
             />
             ))}
         </ul>
