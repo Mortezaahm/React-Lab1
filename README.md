@@ -31,15 +31,6 @@ POST /todos/add → Create new todo
 PUT /todos/:id → Update todo
 DELETE /todos/:id → Delete todo
 
-# Project Structure
-src/
- ├── api/              # API requests (CRUD functions)
- ├── components/      # UI components (TodoItem, TodoList, TodoForm)
- ├── pages/           # Main page (Home)
- ├── types/           # TypeScript types
- ├── App.tsx
- └── main.tsx
-
 # How to Run Locally
 1. Clone repository
 git clone <your-repo-url>
