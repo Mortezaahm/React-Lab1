@@ -1,73 +1,71 @@
-# React + TypeScript + Vite
+# Todo App (React + TypeScript)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple and functional Todo application built with React, TypeScript, and a public API.
+The app demonstrates full CRUD operations along with search, filtering, and optimistic UI updates.
 
-Currently, two official plugins are available:
+# Features
+Fetch todos from API (GET)
+Add new todos (POST)
+Edit existing todos (PUT)
+Delete todos (DELETE)
+Live search functionality
+Filter by status (All / Active / Completed)
+Toggle completion status
+Optimistic UI updates (instant feedback before API response)
+Loading & error handling
+Clean and responsive UI
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+# Tech Stack
+React
+TypeScript
+Vite
+Fetch API
+CSS (custom styling)
 
-## React Compiler
+# API Used
+This project uses the public API:
+https://dummyjson.com/todos
+API Endpoints used:
+GET /todos → Fetch all todos
+POST /todos/add → Create new todo
+PUT /todos/:id → Update todo
+DELETE /todos/:id → Delete todo
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+# Project Structure
+src/
+ ├── api/              # API requests (CRUD functions)
+ ├── components/      # UI components (TodoItem, TodoList, TodoForm)
+ ├── pages/           # Main page (Home)
+ ├── types/           # TypeScript types
+ ├── App.tsx
+ └── main.tsx
 
-## Expanding the ESLint configuration
+# How to Run Locally
+1. Clone repository
+git clone <your-repo-url>
+2. Install dependencies
+npm install
+3. Run development server
+npm run dev
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+# Key Learning Outcomes
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+This project demonstrates:
+Component-based architecture in React
+Proper TypeScript usage in a React app
+State management using hooks
+CRUD operations with REST API
+Controlled forms
+Filtering and searching logic
+UI/UX improvements (loading, empty states)
+Optimistic UI updates
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+# Future Improvements
+Local storage persistence
+Drag & drop reordering
+Pagination or infinite scroll
+Better error UI (toast notifications)
+Unit testing (Jest / React Testing Library)
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+ # Author
+Built as a learning project to master React + TypeScript fundamentals and real-world CRUD patterns.
