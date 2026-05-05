@@ -71,6 +71,7 @@ Tillgänglighet är viktig eftersom den säkerställer att alla användare har l
 Dessutom finns det lagkrav inom EU (t.ex. EU:s tillgänglighetsdirektiv) som ställer krav på att digitala tjänster ska följa tillgänglighetsstandarder som WCAG. Att arbeta med tillgänglighet bidrar också till bättre struktur, SEO och långsiktig hållbarhet i applikationen.
 
 **Ge tre konkreta exempel på hur man kan göra en React-applikation mer tillgänglig**
+
 **1- Använd semantisk HTML och ARIA-attribut**
 Till exempel <button>, <label> och aria-label för att göra komponenter tydliga för hjälpmedel som skärmläsare.
 
